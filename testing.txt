@@ -1,0 +1,19 @@
+create an article
+
+submit an artivle
+
+eddit 
+
+submit
+
+list the articles
+
+open an article
+
+comment on article
+
+upvote
+
+downvote
+
+deletean article
