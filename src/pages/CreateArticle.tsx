@@ -25,7 +25,7 @@ export function TitleAndAction({
     return (
         <div className="mt-12 flex items-center gap-8 border">
             <h1 className=" border text-5xl">{title}</h1>
-            <button id='action' className="h-9 rounded bg-blue-600 px-3 text-white">
+            <button id='action' className="h-9 rounded bg-red-600 px-3 text-white">
                 {action}
             </button>
         </div>
@@ -236,7 +236,11 @@ export function ArticleEditor({
                         <button
                             id='upload-image'
                             className="mt-2 h-9 rounded bg-gray-500 px-3 text-white"
-                            onClick={(e) => { console.log('trigger hidden input file element'); triggerHiddenInputFileElement(e) }}
+                            onClick={(e) => {
+                                console.log('trigger hidden input file element');
+                                triggerHiddenInputFileElement(e)
+                            }
+                            }
                         >
                             Upload an Image
                         </button>)

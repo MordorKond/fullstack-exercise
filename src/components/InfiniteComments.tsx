@@ -65,46 +65,46 @@ function CommentCard({
   user,
 }: Comment) {
   const trpcUtils = api.useContext();
-  const toggleLike = api.comment.toggleLike.useMutation({
-    onSuccess: ({ addedLike }) => {
-      const updater: Parameters<
-        typeof trpcUtils.comment.infiniteFeed.setInfiniteData
-      >[1] = (oldData) => {
-        if (oldData == null) return;
-        const countModifier = addedLike ? 1 : -1;
-        return {
-          ...oldData,
-          pages: oldData.pages.map((page) => {
-            return {
-              ...page,
-              comments: page.comments.map((comment) => {
-                if (comment.id === id) {
-                  return {
-                    ...comment,
-                    likeCount: comment.likeCount + countModifier,
-                    likedByMe: addedLike,
-                  };
-                }
-                return comment;
-              }),
-            };
-          }),
-        };
-      };
-      trpcUtils.comment.infiniteFeed.setInfiniteData({}, updater);
-      trpcUtils.comment.infiniteFeed.setInfiniteData(
-        { onlyFollowing: true },
-        updater
-      );
-      trpcUtils.comment.infiniteProfileFeed.setInfiniteData(
-        { userId: user.id },
-        updater
-      );
-    },
-  });
-  function handleToggleLike() {
-    toggleLike.mutate({ id });
-  }
+  // const toggleLike = api.comment.toggleLike.useMutation({
+  //   onSuccess: ({ addedLike }) => {
+  //     // const updater: Parameters<
+  //     //   typeof trpcUtils.comment.infiniteFeed.setInfiniteData
+  //     // >[1] = (oldData) => {
+  //     //   if (oldData == null) return;
+  //     //   const countModifier = addedLike ? 1 : -1;
+  //     //   return {
+  //     //     ...oldData,
+  //     //     pages: oldData.pages.map((page) => {
+  //     //       return {
+  //     //         ...page,
+  //     //         comments: page.comments.map((comment) => {
+  //     //           if (comment.id === id) {
+  //     //             return {
+  //     //               ...comment,
+  //     //               likeCount: comment.likeCount + countModifier,
+  //     //               likedByMe: addedLike,
+  //     //             };
+  //     //           }
+  //     //           return comment;
+  //     //         }),
+  //     //       };
+  //     //     }),
+  //     //   };
+  //     // };
+  //     // trpcUtils.comment.infiniteFeed.setInfiniteData({}, updater);
+  //     // trpcUtils.comment.infiniteFeed.setInfiniteData(
+  //     //   { onlyFollowing: true },
+  //     //   updater
+  //     // );
+  //     // trpcUtils.comment.infiniteProfileFeed.setInfiniteData(
+  //     //   { userId: user.id },
+  //     //   updater
+  //     // );
+  //   },
+  // });
+  // function handleToggleLike() {
+  //   toggleLike.mutate({ id });
+  // }
   return (
     <li className="flex gap-2 border-b p-4">
       <Link href={`/profiles/${user.id}`}>
@@ -126,8 +126,10 @@ function CommentCard({
         </div>
         <p className="whitespace-pre-wrap">{content}</p>
         <HeartButton
-          onClick={handleToggleLike}
-          isLoading={toggleLike.isLoading}
+          onClick={()=>console.log('toggleLike')}
+          // onClick={handleToggleLike}
+          isLoading={false}
+          // isLoading={toggleLike.isLoading}
           likeCount={likeCount}
           likedByMe={likedByMe}
         />

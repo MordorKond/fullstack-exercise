@@ -8,7 +8,7 @@ import { NavBar } from "~/components/NavBar";
 import { NextPage } from "next";
 import type { OurFileRouter } from "~/server/uploadthing";
 import { UploadButton } from "@uploadthing/react";
-import UploadImageToS3WithNativeSdk from "~/components/UploadImageToS3WithNativeSdk";
+// import UploadImageToS3WithNativeSdk from "~/components/UploadImageToS3WithNativeSdk";
 import { api } from "~/utils/api";
 import { useSession } from "next-auth/react";
 
@@ -59,7 +59,7 @@ const EditArticle: NextPage = () => {
             e.preventDefault();
             createArticle.mutate({
               title: formData.title,
-              image: formData.image,
+              imageId: formData.image,
               content: formData.content,
             });
             console.log(formData);
@@ -101,7 +101,7 @@ const EditArticle: NextPage = () => {
             onClientUploadComplete={(res) => {
               // Do something with the response
               console.log("Files: ", res);
-              setImgSrc(res[0]!.fileUrl);
+              // setImgSrc(res[0]!.fileUrl);
               // alert("Upload Completed");
             }}
             onUploadError={(error: Error) => {

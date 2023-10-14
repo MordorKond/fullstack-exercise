@@ -29,7 +29,7 @@ export const env = createEnv({
         UPLODTHING_APP_ID: z.string(),
         AWS_BUCKET_NAME: z.string(),
         AWS_BUCKET_REGION: z.string(),
-        AWS_ACCESS_KEY: z.string(),
+        AWS_ACCESS_KEY_ID: z.string(),
         AWS_SECRET_ACCESS_KEY: z.string(),
 
     },
@@ -60,7 +60,7 @@ export const env = createEnv({
         UPLODTHING_APP_ID: process.env.UPLODTHING_APP_ID,
         AWS_BUCKET_NAME: process.env.AWS_BUCKET_NAME,
         AWS_BUCKET_REGION: process.env.AWS_BUCKET_REGION,
-        AWS_ACCESS_KEY: process.env.AWS_ACCESS_KEY,
+        AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
         AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
     },
     /**

@@ -3,6 +3,7 @@
     "target": "es2017",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
+    "typeRoots": ["node_modules/@types"],
     "checkJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -17,7 +18,7 @@
     "incremental": true,
     "noUncheckedIndexedAccess": true,
     "baseUrl": ".",
-    "types": ["cypress", "cypress-file-upload"],
+    // "types": ["cypress", "cypress-file-upload"],
     "paths": {
       "~/*": ["./src/*"]
     }
