@@ -117,9 +117,15 @@ export const articleRouter = createTRPCRouter({
                 data: {
                     title,
                     content,
+                    perex: content.slice(0, 250),
                     imageId,
                 },
             });
+        }),
+    deleteMany: protectedProcedure
+        .input(z.object({ articleIds: z.array(z.string()) }))
+        .mutation(async ({ input: { articleIds }, ctx }) => {
+            await ctx.prisma.article.deleteMany({ where: { id: { in: articleIds } } });
         }),
     delete: protectedProcedure
         .input(z.object({ articleId: z.string() }))
@@ -137,15 +143,27 @@ export const articleRouter = createTRPCRouter({
                     imageId,
                     content,
                     userId: ctx.session.user.id,
-                    perex: content.slice(0, 250 - 3).split(' ').map((x, i) => !content.split(' ')[i + 1] ? '...' : x).join(' ')
+                    perex: content.slice(0, 250)
+                    // .split(' ')
+                    // .map((x, i) => !content.split(' ')[i + 1] ? '...' : x)
+                    // .join(' ')
                 },
             });
 
             return article;
         }),
     getProfileArticles: publicProcedure
-        .input(z.object({ userId: z.string().optional() }))
-        .query(async ({ ctx }) => {
+        .input(z.object({
+            userId: z.string().optional(),
+            orderBy: z.object({
+                title: z.enum(['asc', 'desc']).optional(),
+                perex: z.enum(['asc', 'desc']).optional(),
+                createdAt: z.enum(['asc', 'desc']).optional(),
+                userId: z.enum(['asc', 'desc']).optional(),
+            }).optional().default({ createdAt: "desc" }),
+        }))
+        .query(async ({ input, ctx }) => {
+
             const currentUserId = ctx.session?.user.id;
             const data = ctx.prisma.article.findMany({
                 select: {
@@ -153,15 +171,18 @@ export const articleRouter = createTRPCRouter({
                     title: true,
                     perex: true,
                     user: { select: { name: true } },
-                    comments: true,
+                    // comments: true,
                     // todo implement direct comment count
-                    // _count:{select:{comments}}
+                    _count: { select: { comments: true } },
                     createdAt: true,
                 },
                 where: {
                     user: { id: currentUserId },
                 },
-                orderBy: { createdAt: "desc" },
+                // orderBy: input.orderBy[0],
+                orderBy: input.orderBy,
+                // orderBy: { title: "desc" },
+                // orderBy: { createdAt: "desc" },
             });
             return data;
         }),

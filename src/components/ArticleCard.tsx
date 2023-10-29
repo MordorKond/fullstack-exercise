@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { api } from "~/utils/api";
-import catSrc from "images/cat1.svg";
 import circleSrc from "images/circle.svg";
 
 //todo:how to get a link to the image and remove the nasty type
@@ -20,7 +19,6 @@ export function ArticleCard(article: ArticleCardProps) {
     //? note the numebr of charactes in the description
     //? we might have to use a hook for that ....
     //todo font family halvetica neu
-    //todo ?
     const dateTimeFormater = new Intl.DateTimeFormat(undefined, {
         dateStyle: "short",
     });
