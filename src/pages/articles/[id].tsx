@@ -15,10 +15,10 @@ import { LoadingSpinner } from "~/components/LoadingSpinner";
 import { NavBar } from "~/components/NavBar";
 import { VscAccount } from "react-icons/vsc";
 import { api } from "~/utils/api";
-import circleSrc from "../../../images/circle.svg";
-import downVoteIcon from "../../../images/chevron-Down.svg";
+import circleSrc from "images/circle.svg";
+import downVoteIcon from "images/chevron-down.svg";
 import { ssgHelper } from "~/server/api/ssgHelper";
-import upVoteIcon from "../../../images/chevron-up.svg";
+import upVoteIcon from "images/chevron-up.svg";
 import { useSession } from "next-auth/react";
 import ReactMarkdown from 'react-markdown'
 
